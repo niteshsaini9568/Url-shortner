@@ -17,7 +17,7 @@ module.exports.urlShort = async (req, res) => {
         }
 
         const shortId = nanoid(8);
-        let shorted = `http://shorted-url/${shortId}`;
+        let shorted = `https://url-shortner-peach-nine.vercel.app/${shortId}`;
         const urlData = new urlModel({
             originalUrl: originalUrl,
             shortId: shortId,
