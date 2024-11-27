@@ -1,4 +1,5 @@
 require("dotenv").config(); 
+const { rateLimit } = require('express-rate-limit');
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -6,8 +7,13 @@ const cors = require("cors");
 const urlRoutes = require("./Routes/urlRoutes");
 const db = require("./Models/db")
 const app = express();
-
+const limiter = rateLimit({
+    windowMs: 60 * 1000, 
+    limit: 100, 
+    message : "We have too many request, please try again later.."
+})
 db.main();
+app.use(limiter)
 app.use(morgan("dev")); 
 app.use(bodyParser.json()); 
 app.use(cors()); 
